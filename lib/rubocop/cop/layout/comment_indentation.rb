@@ -102,8 +102,22 @@ module RuboCop
         end
 
         def two_alternatives?(line)
+          # return false if line.nil?
+
+          contains_keyword?(line) || contains_access_modifier?(line)
+        end
+
+        def contains_keyword?(line)
           line =~ /^\s*(else|elsif|when|rescue|ensure)\b/
         end
+
+        def contains_access_modifier?(line)
+          line =~ /^\s*(public|protected|private|module_function)$/
+        end
+        # def contains_access_modifier?(line)
+        #   node = parse(line).ast
+        #   node && node.send_type? && node.access_modifier?
+        # end
       end
     end
   end

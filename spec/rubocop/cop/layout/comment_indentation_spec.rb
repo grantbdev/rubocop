@@ -111,6 +111,18 @@ describe RuboCop::Cop::Layout::CommentIndentation do
     end
   end
 
+  context 'before bare access modifiers' do
+    it 'accepts correctly indented comments' do
+      expect_no_offenses(<<-RUBY.strip_indent)
+          # this is accepted
+          protected
+          # this is accepted
+
+        private
+      RUBY
+    end
+  end
+
   context 'near various kinds of brackets' do
     it 'accepts correctly indented comments' do
       expect_no_offenses(<<-RUBY.strip_indent)
